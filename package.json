@@ -18,6 +18,13 @@
   },
   "homepage": "https://github.com/hai5nguy/padawanapi#readme",
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.3",
+    "graphql": "^0.6.2",
+    "mongodb": "^2.2.4"
   }
 }
