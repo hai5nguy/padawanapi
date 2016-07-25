@@ -1,0 +1,20 @@
+{
+  "name": "padawanapi",
+  "version": "1.0.0",
+  "description": "Padawan Api",
+  "main": "index.js",
+  "scripts": {
+  	"start": "do start",
+    "test": "do test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hai5nguy/padawanapi.git"
+  },
+  "author": "Hai Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hai5nguy/padawanapi/issues"
+  },
+  "homepage": "https://github.com/hai5nguy/padawanapi#readme"
+}

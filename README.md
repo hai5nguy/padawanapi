@@ -1,3 +1,3 @@
 # Padawan Api
 
-Padawan Api is the Api for Padawan, a simple CRUD application to manage students.
+Padawan Api is the Api sever for Padawan App, a simple CRUD application to manage students.
