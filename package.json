@@ -4,6 +4,7 @@
   "description": "Padawan Api",
   "main": "index.js",
   "scripts": {
+    "mongo": "mongod --dbpath data/local",
     "start": "do start",
     "test": "do test"
   },
