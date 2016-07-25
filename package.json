@@ -4,7 +4,7 @@
   "description": "Padawan Api",
   "main": "index.js",
   "scripts": {
-  	"start": "do start",
+    "start": "do start",
     "test": "do test"
   },
   "repository": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hai5nguy/padawanapi/issues"
   },
-  "homepage": "https://github.com/hai5nguy/padawanapi#readme"
+  "homepage": "https://github.com/hai5nguy/padawanapi#readme",
+  "devDependencies": {
+    "mocha": "^2.5.3"
+  }
 }
