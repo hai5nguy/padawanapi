@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/hai5nguy/padawanapi#readme",
   "devDependencies": {
+    "babel-polyfill": "^6.9.1",
     "babel-register": "^6.11.5",
     "chai": "^3.5.0",
     "mocha": "^2.5.3"
