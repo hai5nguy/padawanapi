@@ -1,10 +1,13 @@
 import express 		from 'express'
 import graphqlHTTP 	from 'express-graphql'
 
+import schema 		from '~/schema/schema'
+
 const PORT 		= process.env.PORT 		|| 9000
 const NODE_ENV	= process.env.NODE_ENV 	|| 'local'
 
 var _listener
+
 
 export default class App {
 
@@ -25,6 +28,13 @@ export default class App {
 	static createApp () {
 		return new Promise((resolve, reject) => {
 			var app = express()
+
+			app.use('/graphql', graphqlHTTP((req, res) => {
+				return {
+					schema,
+					graphiql: true
+				}
+			}))
 
 			var l = app.listen(PORT, () => {
 			    console.log(`=====> Padawan Api Server Online.  Port: ${PORT}.  Environment: ${NODE_ENV}`)
