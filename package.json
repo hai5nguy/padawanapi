@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "mongo": "mongod --dbpath data/local",
-    "start": "do start",
+    "start": "node index.js",
     "test": "do test"
   },
   "repository": {
@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/hai5nguy/padawanapi#readme",
   "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.5",
+    "babel-root-import": "^4.0.1",
     "chai": "^3.5.0",
     "mocha": "^2.5.3"
   },
