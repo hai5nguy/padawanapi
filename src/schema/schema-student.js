@@ -42,9 +42,20 @@ const Mutations = {
 		},
 		resolve: async (root, args) => {
 			var student = await Mongo.Delete('students', { _id: ObjectID(args._id) })
-			// console.log(student)
 			return student
-			// return { _id: 'blah', status: 'DELETE_SUCCESS' }
+		}
+	},
+	updateStudent: {
+		type: StudentType,
+		args: {
+			_id: { type: GraphQLID },
+			name: { type: GraphQLString }
+		},
+		resolve: async (root, args) => {
+			var filter = { _id: ObjectID(args._id) }
+			var value = { name: args.name }
+			var student = await Mongo.Update('students', filter, value)
+			return student
 		}
 	}
 }

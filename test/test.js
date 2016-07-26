@@ -26,7 +26,7 @@ describe('Padawan Api Unit Tests', () => {
 
 			CREATED_STUDENT_ID = _id
 
-			assert(_id, '_id should exists')
+			assert(_id, '_id should exist')
 			assert(name === 'new student name', 'name should be new student name')
 			done()
 		})
@@ -44,8 +44,25 @@ describe('Padawan Api Unit Tests', () => {
 		`).end((err, res) => {
 			// console.log(res.body)
 			var { _id, name } = res.body.data.student
-			assert(_id, '_id should exists')
+			assert(_id, '_id should exist')
 			assert(name === 'new student name', 'student name is suppose to be new student name')
+			done()
+		})
+	})
+
+	it('should update a student\'s name', (done) => {
+		sendGraph(`
+			mutation {
+				updateStudent ( _id: "${CREATED_STUDENT_ID}", name: "name updated" ) {
+					_id
+					name
+				}
+			}
+		`).end((err, res) => {
+			console.log(res.body)
+			var { _id, name } = res.body.data.updateStudent
+			assert(_id, 'id should exist')
+			assert(name === 'name updated', 'name should say name updated')
 			done()
 		})
 	})
@@ -58,7 +75,7 @@ describe('Padawan Api Unit Tests', () => {
 				}
 			}
 		`).end((err, res) => {
-			console.log(res.body)
+			// console.log(res.body)
 			var { status } = res.body.data.deleteStudent
 			assert(status === "DELETE_SUCCESS", 'status should say DELETE_SUCCESS')
 			done()
