@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql/type'
+import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } from 'graphql/type'
 import Mongo from '~/backend/mongo'
 import { ObjectID } from 'mongodb'
 
@@ -20,6 +20,12 @@ const Queries = {
 		resolve: async (root, args) => {
 			var student = await Mongo.Read('students', { _id: ObjectID(args._id) })
 			return student
+		}
+	},
+	students: {
+		type: new GraphQLList(StudentType),
+		resolve: async (root, args) => {
+			return [ {blah: 'blah'} ]
 		}
 	}
 }

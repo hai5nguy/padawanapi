@@ -50,6 +50,21 @@ describe('Padawan Api Unit Tests', () => {
 		})
 	})
 
+	it('should return all students', (done) => {
+		sendGraph(`
+			query {
+				students {
+					_id
+				}
+			}
+		`).end((err, res) => {
+			// console.log(res.body)
+			var { students } = res.body.data
+			assert(students.length, 'students should not be an empty array')
+			done()
+		})
+	})
+
 	it('should update a student\'s name', (done) => {
 		sendGraph(`
 			mutation {
@@ -59,7 +74,7 @@ describe('Padawan Api Unit Tests', () => {
 				}
 			}
 		`).end((err, res) => {
-			console.log(res.body)
+			// console.log(res.body)
 			var { _id, name } = res.body.data.updateStudent
 			assert(_id, 'id should exist')
 			assert(name === 'name updated', 'name should say name updated')
