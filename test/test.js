@@ -20,13 +20,13 @@ describe('Padawan Api Unit Tests', () => {
 				}
 			}
 		`).end((err, res) => {
-			console.log(res.body)
+			// console.log(res.body)
 
 			var { _id, name } = res.body.data.createStudent
 
 			CREATED_STUDENT_ID = _id
 
-			assert(_id !== undefined, '_id should be defined')
+			assert(_id, '_id should exists')
 			assert(name === 'new student name', 'name should be new student name')
 			done()
 		})
@@ -41,12 +41,26 @@ describe('Padawan Api Unit Tests', () => {
 					name
 				}
 			}
-		`)
-		.end((err, res) => {
-			console.log(res.body)
+		`).end((err, res) => {
+			// console.log(res.body)
 			var { _id, name } = res.body.data.student
-			assert(_id !== undefined, '_id should be defined')
+			assert(_id, '_id should exists')
 			assert(name === 'new student name', 'student name is suppose to be new student name')
+			done()
+		})
+	})
+
+	it('should delete a student', (done) => {
+		sendGraph(`
+			mutation {
+				deleteStudent (_id: "${CREATED_STUDENT_ID}") {
+					status
+				}
+			}
+		`).end((err, res) => {
+			console.log(res.body)
+			var { status } = res.body.data.deleteStudent
+			assert(status === "DELETE_SUCCESS", 'status should say DELETE_SUCCESS')
 			done()
 		})
 	})

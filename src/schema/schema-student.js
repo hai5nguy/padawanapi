@@ -34,6 +34,18 @@ const Mutations = {
 			var student = await Mongo.Create('students', { name: args.name })
 			return student
 		}
+	},
+	deleteStudent: {
+		type: StudentType,
+		args: {
+			_id: { type: GraphQLID }
+		},
+		resolve: async (root, args) => {
+			var student = await Mongo.Delete('students', { _id: ObjectID(args._id) })
+			// console.log(student)
+			return student
+			// return { _id: 'blah', status: 'DELETE_SUCCESS' }
+		}
 	}
 }
 
