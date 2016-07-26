@@ -2,6 +2,8 @@ import { assert } from 'chai'
 
 import { TestServer, sendGraph } from './test-server'
 
+var CREATED_STUDENT_ID
+
 describe('Padawan Api Unit Tests', () => {
 
 	before(async (done) => {
@@ -22,6 +24,8 @@ describe('Padawan Api Unit Tests', () => {
 
 			var { _id, name } = res.body.data.createStudent
 
+			CREATED_STUDENT_ID = _id
+
 			assert(_id !== undefined, '_id should be defined')
 			assert(name === 'new student name', 'name should be new student name')
 			done()
@@ -32,15 +36,17 @@ describe('Padawan Api Unit Tests', () => {
 	it('should return a student', (done) => {
 		sendGraph(`
 			query {
-				student {
+				student (_id: "${CREATED_STUDENT_ID}") {
+					_id,
 					name
 				}
 			}
 		`)
 		.end((err, res) => {
 			console.log(res.body)
-			var { name } = res.body.data.student
-			assert(name === 'blah', 'student name is suppose to be blah')
+			var { _id, name } = res.body.data.student
+			assert(_id !== undefined, '_id should be defined')
+			assert(name === 'new student name', 'student name is suppose to be new student name')
 			done()
 		})
 	})

@@ -1,4 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql/type'
+import Mongo from '~/backend/mongo'
+import { ObjectID } from 'mongodb'
 
 export const StudentType = new GraphQLObjectType({
 	name: 'Student',
@@ -16,7 +18,8 @@ const Queries = {
 			_id: { type: GraphQLID }
 		},
 		resolve: async (root, args) => {
-			return { name: 'blah'}
+			var student = await Mongo.Read('students', { _id: ObjectID(args._id) })
+			return student
 		}
 	}
 }
@@ -28,7 +31,8 @@ const Mutations = {
 			name: { type: GraphQLString }
 		},
 		resolve: async (root, args) => {
-			return { _id: 'blah', name: args.name }
+			var student = await Mongo.Create('students', { name: args.name })
+			return student
 		}
 	}
 }
