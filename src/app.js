@@ -2,6 +2,7 @@ import express 		from 'express'
 import graphqlHTTP 	from 'express-graphql'
 
 import schema 		from '~/schema/schema'
+import Mongo 		from '~/backend/mongo'
 
 const PORT 		= process.env.PORT 		|| 9000
 const NODE_ENV	= process.env.NODE_ENV 	|| 'local'
@@ -15,6 +16,7 @@ export default class App {
 	static set listener(l) { _listener = l }
 
 	static async start() {
+		await Mongo.connect()
 		await this.createApp()
 		return this
 	}
