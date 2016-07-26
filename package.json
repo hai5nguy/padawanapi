@@ -6,7 +6,7 @@
   "scripts": {
     "mongo": "mongod --dbpath data/local",
     "start": "node index.js",
-    "test": "do test"
+    "test": "mongod --dbpath data/local | mocha --watch test/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "babel-register": "^6.11.5",
     "babel-root-import": "^4.0.1",
     "chai": "^3.5.0",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "supertest": "^1.2.0"
   },
   "dependencies": {
     "express": "^4.14.0",
