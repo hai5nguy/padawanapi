@@ -13,10 +13,10 @@ const Queries = {
 	student: {
 		type: StudentType,
 		args: {
-			token: { type: GraphQLString }
+			_id: { type: GraphQLID }
 		},
 		resolve: async (root, args) => {
-			return { blah: 'blah'}
+			return { name: 'blah'}
 		}
 	}
 }
@@ -28,7 +28,7 @@ const Mutations = {
 			name: { type: GraphQLString }
 		},
 		resolve: async (root, args) => {
-			return { blah: 'blah' }
+			return { _id: 'blah', name: args.name }
 		}
 	}
 }
