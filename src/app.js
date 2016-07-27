@@ -1,5 +1,6 @@
 import express 		from 'express'
 import graphqlHTTP 	from 'express-graphql'
+import cors			from 'cors'
 
 import schema 		from '~/schema/schema'
 import Mongo 		from '~/backend/mongo'
@@ -31,7 +32,7 @@ export default class App {
 		return new Promise((resolve, reject) => {
 			var app = express()
 
-			app.use('/graphql', graphqlHTTP((req, res) => {
+			app.use('/graphql', cors(), graphqlHTTP((req, res) => {
 				return {
 					schema,
 					graphiql: true

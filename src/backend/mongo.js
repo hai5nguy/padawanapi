@@ -4,7 +4,7 @@ var PADAWAN_MONGO_CONNECTION_STRING = process.env.PADAWAN_MONGO_CONNECTION_STRIN
 
 var _db
 
-export const connect = async () => {
+const connect = async () => {
 	try {
 		_db = await MongoClient.connect(PADAWAN_MONGO_CONNECTION_STRING)
 	    console.log('=====> Connected to mongo server:', PADAWAN_MONGO_CONNECTION_STRING);
@@ -14,24 +14,24 @@ export const connect = async () => {
 }
 
 
-export const Create = async (collection, value) => {
+const Create = async (collection, value) => {
 	var r = await _db.collection(collection).insertOne(value)
 	var i = await _db.collection(collection).find({ _id: r.insertedId }).toArray()
 	return i[0]
 }
 
 
-export const Read = async (collection, filter) => {
+const Read = async (collection, filter) => {
 	var r = await _db.collection(collection).find(filter).toArray()
 	return r[0]
 }
 
-export const ReadMany = async (collection, filter) => {
+const ReadMany = async (collection, filter) => {
 	return await _db.collection(collection).find(filter).toArray()
 }
 
 
-export const Update = async (collection, filter, value) => {
+const Update = async (collection, filter, value) => {
 	if (typeof collection !== 'string') throw 'DB.Update error: collection name must be a string'
 
 	var doc = await _db.collection(collection).findOneAndUpdate(filter, { $set: value }, { upsert: true })
@@ -49,7 +49,7 @@ export const Update = async (collection, filter, value) => {
 }
 
 
-export const Delete = async (collection, filter) => {
+const Delete = async (collection, filter) => {
 	var r = await _db.collection(collection).deleteOne(filter)
 
 	if (r.deletedCount === 1) {
@@ -59,5 +59,14 @@ export const Delete = async (collection, filter) => {
 	}
 }
 
-export default { connect, Create, Delete, Read, ReadMany, Update }
+const DeleteMany = async (collection, filter) => {
+	var r = await _db.collection(collection).deleteMany(filter)
+	if (r.result.ok === 1) {
+		return { status: 'DELETE_SUCCESS' }
+	} else {
+		return { status: 'DELETE_FAIL' }
+	}
+}
+
+export default { connect, Create, Delete, DeleteMany, Read, ReadMany, Update }
 

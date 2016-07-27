@@ -58,9 +58,10 @@ describe('Padawan Api Unit Tests', () => {
 				}
 			}
 		`).end((err, res) => {
-			// console.log(res.body)
+			// console.log(res.body.data.students)
 			var { students } = res.body.data
 			assert(students.length, 'students should not be an empty array')
+			assert(students[0]._id, 'the first student _id should be defined')
 			done()
 		})
 	})
@@ -93,6 +94,28 @@ describe('Padawan Api Unit Tests', () => {
 			// console.log(res.body)
 			var { status } = res.body.data.deleteStudent
 			assert(status === "DELETE_SUCCESS", 'status should say DELETE_SUCCESS')
+			done()
+		})
+	})
+
+	it('should delete all students', done => {
+		sendGraph(`
+			mutation {
+				A: createStudent ( name: "student A") {
+					_id, name
+				}
+				B: createStudent ( name: "student B") {
+					_id, name
+				}
+				deleteAllStudents {
+					status
+				}
+			}
+
+		`).end((err, res) => {
+			// console.log(res.body)
+			var { status } = res.body.data.deleteAllStudents
+			assert(status === 'DELETE_SUCCESS', 'status should be DELETE_SUCCESS')
 			done()
 		})
 	})

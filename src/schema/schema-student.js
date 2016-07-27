@@ -25,7 +25,8 @@ const Queries = {
 	students: {
 		type: new GraphQLList(StudentType),
 		resolve: async (root, args) => {
-			return [ {blah: 'blah'} ]
+			var students = await Mongo.ReadMany('students')
+			return students
 		}
 	}
 }
@@ -50,6 +51,17 @@ const Mutations = {
 			var student = await Mongo.Delete('students', { _id: ObjectID(args._id) })
 			return student
 		}
+	},
+	deleteAllStudents: {
+		type: StudentType,
+		args: {
+			_id: { type: GraphQLID }
+		},
+		resolve: async (root, args) => {
+			var result = await Mongo.DeleteMany('students', {})
+			return result
+		}
+
 	},
 	updateStudent: {
 		type: StudentType,
