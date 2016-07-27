@@ -32,7 +32,7 @@ export default class App {
 		return new Promise((resolve, reject) => {
 			var app = express()
 
-			app.use('/graphql', cors(), graphqlHTTP((req, res) => {
+			app.use('/graphql', cors(), graphqlHTTP(async (req, res) => {
 				return {
 					schema,
 					graphiql: true

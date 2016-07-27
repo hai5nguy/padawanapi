@@ -2,6 +2,8 @@ import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } from 'graphq
 import Mongo from '~/backend/mongo'
 import { ObjectID } from 'mongodb'
 
+import Testing from './testing'
+
 export const StudentType = new GraphQLObjectType({
 	name: 'Student',
 	fields: () => ({
@@ -18,6 +20,7 @@ const Queries = {
 			_id: { type: GraphQLID }
 		},
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var student = await Mongo.Read('students', { _id: ObjectID(args._id) })
 			return student
 		}
@@ -25,6 +28,7 @@ const Queries = {
 	students: {
 		type: new GraphQLList(StudentType),
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var students = await Mongo.ReadMany('students')
 			return students
 		}
@@ -70,6 +74,7 @@ const Mutations = {
 			name: { type: GraphQLString }
 		},
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var filter = { _id: ObjectID(args._id) }
 			var value = { name: args.name }
 			var student = await Mongo.Update('students', filter, value)
