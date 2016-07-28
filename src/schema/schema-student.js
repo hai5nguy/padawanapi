@@ -42,6 +42,7 @@ const Mutations = {
 			name: { type: GraphQLString }
 		},
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var student = await Mongo.Create('students', { name: args.name })
 			return student
 		}
@@ -52,6 +53,7 @@ const Mutations = {
 			_id: { type: GraphQLID }
 		},
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var student = await Mongo.Delete('students', { _id: ObjectID(args._id) })
 			return student
 		}
@@ -62,6 +64,7 @@ const Mutations = {
 			_id: { type: GraphQLID }
 		},
 		resolve: async (root, args) => {
+			await Testing.sleep()
 			var result = await Mongo.DeleteMany('students', {})
 			return result
 		}
