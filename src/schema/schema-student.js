@@ -9,6 +9,7 @@ export const StudentType = new GraphQLObjectType({
 	fields: () => ({
 		_id: { type: GraphQLID },
 		name: { type: GraphQLString, description: 'name of student' },
+		hometown: { type: GraphQLString, description: 'hometown of student' },
 		status: { type: GraphQLString, description: 'status of student' }
 	})
 })
@@ -42,11 +43,13 @@ const Mutations = {
 		type: StudentType,
 		description: 'create a student',
 		args: {
-			name: { type: GraphQLString, description: '(required) name of new student' }
+			name: { type: GraphQLString, description: '(required) name of new student' },
+			hometown: { type: GraphQLString, description: 'hometown of student' }
 		},
 		resolve: async (root, args) => {
 			await Testing.sleep()
-			var student = await Mongo.Create('students', { name: args.name })
+			var { name, hometown } = args
+			var student = await Mongo.Create('students', { name, hometown })
 			return student
 		}
 	},

@@ -14,20 +14,22 @@ describe('Padawan Api Unit Tests', () => {
 	it('should create a new student', (done) => {
 		sendGraph(`
 			mutation {
-				createStudent (name: "new student name") {
+				createStudent (name: "new student name", hometown: "indy") {
 					_id,
-					name
+					name,
+					hometown
 				}
 			}
 		`).end((err, res) => {
 			// console.log(res.body)
 
-			var { _id, name } = res.body.data.createStudent
+			var { _id, name, hometown } = res.body.data.createStudent
 
 			CREATED_STUDENT_ID = _id
 
 			assert(_id, '_id should exist')
 			assert(name === 'new student name', 'name should be new student name')
+			assert(hometown === 'indy', 'hometown should be indy')
 			done()
 		})
 	})
