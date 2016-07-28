@@ -8,14 +8,15 @@ export const StudentType = new GraphQLObjectType({
 	name: 'Student',
 	fields: () => ({
 		_id: { type: GraphQLID },
-		name: { type: GraphQLString },
-		status: { type: GraphQLString }
+		name: { type: GraphQLString, description: 'name of student' },
+		status: { type: GraphQLString, description: 'status of student' }
 	})
 })
 
 const Queries = {
 	student: {
 		type: StudentType,
+		description: 'get a student',
 		args: {
 			_id: { type: GraphQLID }
 		},
@@ -27,6 +28,7 @@ const Queries = {
 	},
 	students: {
 		type: new GraphQLList(StudentType),
+		description: 'get the list of all students',
 		resolve: async (root, args) => {
 			await Testing.sleep()
 			var students = await Mongo.ReadMany('students')
@@ -38,8 +40,9 @@ const Queries = {
 const Mutations = {
 	createStudent: {
 		type: StudentType,
+		description: 'create a student',
 		args: {
-			name: { type: GraphQLString }
+			name: { type: GraphQLString, description: '(required) name of new student' }
 		},
 		resolve: async (root, args) => {
 			await Testing.sleep()
@@ -49,8 +52,9 @@ const Mutations = {
 	},
 	deleteStudent: {
 		type: StudentType,
+		description: 'delete a student',
 		args: {
-			_id: { type: GraphQLID }
+			_id: { type: GraphQLID, description: '(required) _id of student to delete' }
 		},
 		resolve: async (root, args) => {
 			await Testing.sleep()
@@ -60,9 +64,7 @@ const Mutations = {
 	},
 	deleteAllStudents: {
 		type: StudentType,
-		args: {
-			_id: { type: GraphQLID }
-		},
+		description: 'delete ALL students',
 		resolve: async (root, args) => {
 			await Testing.sleep()
 			var result = await Mongo.DeleteMany('students', {})
@@ -72,9 +74,10 @@ const Mutations = {
 	},
 	updateStudent: {
 		type: StudentType,
+		description: 'update a student',
 		args: {
-			_id: { type: GraphQLID },
-			name: { type: GraphQLString }
+			_id: { type: GraphQLID, description: '(required) _id of student to update' },
+			name: { type: GraphQLString, description: '(required) new name of student' }
 		},
 		resolve: async (root, args) => {
 			await Testing.sleep()
